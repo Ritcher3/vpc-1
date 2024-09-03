@@ -17,7 +17,7 @@ variable "subnet_cidr_priv_block" {
 variable "azs" {
   description = "List of Availability Zones"
   type        = list(string)
-  default     = [data.aws_availability_zones.available.names]
+  default     = ""
 }
 
 variable "tags_all" {
