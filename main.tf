@@ -1,10 +1,5 @@
 data "aws_availability_zones" "available" {
   state = "available"
-
-  filter {
-    name   = "region-name"
-    values = ["us-east-2"]
-  }
 }
 
 resource "aws_vpc" "main" {
@@ -13,10 +8,10 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "private" {
-  for_each = toset(subnet_cidr_priv_block)
+  for_each = toset(var.subnet_cidr_priv_block)
   vpc_id                  = aws_vpc.main.id
   cidr_block              = each.value
-  availability_zone       = element(var.azs, index(subnet_cidr_priv_block, each.value))
+  availability_zone       = element(var.azs, index(var.subnet_cidr_priv_block, each.value))
   map_public_ip_on_launch = false
 
   tags = {
@@ -25,10 +20,10 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_subnet" "public" {
-  for_each = toset(subnet_cidr_pub_block)
+  for_each = toset(var.subnet_cidr_pub_block)
   vpc_id                  = aws_vpc.main.id
   cidr_block              = each.value
-  availability_zone       = element(var.azs, index(subnet_cidr_pub_block, each.value))
+  availability_zone       = element(var.azs, index(var.subnet_cidr_pub_block, each.value))
   map_public_ip_on_launch = false
 
   tags = {

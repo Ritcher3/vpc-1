@@ -5,18 +5,19 @@ variable "vpc_cidr_block" {
 }
 
 variable "subnet_cidr_pub_block" {
-  type        = string
+  type        = list(string)
   description = "CIDR block for the public subnet"
 }
 
 variable "subnet_cidr_priv_block" {
-  type        = string
+  type        = list(string)
   description = "CIDR block for the private subnet"
 }
 
 variable "azs" {
   description = "List of Availability Zones"
   type        = list(string)
+  default     = data.aws_availability_zones.available.names
 }
 
 variable "tags_all" {
