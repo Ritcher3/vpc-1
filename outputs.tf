@@ -3,6 +3,11 @@ output "private_subnet" {
   description = "private subnet cidr"
 }
 
+output "private_subnet_cidr_blocks" {
+  value = [for subnet in aws_subnet.private : subnet.cidr_block]
+  description = "List of CIDR blocks for the private subnets"
+}
+
 output "public_subnet" {
   value       =  aws_subnet.public
   description = "private subnet cidr"
@@ -13,7 +18,7 @@ output "vpc_id" {
   description = "main vpc"
 }
 
-output "first_public_subnet_id" {
+output "firstpublic_subnet_id" {
   value = tolist(values(aws_subnet.public))[0].id
   description = "ID of the first public subnet"
 }
