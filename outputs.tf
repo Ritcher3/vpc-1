@@ -8,7 +8,7 @@ output "private_subnet_cidr_blocks" {
   description = "List of CIDR blocks for the private subnets"
 }
 
-output "public_subnet" {
+output "public_subnets" {
   value       =  aws_subnet.public
   description = "private subnet cidr"
 }
