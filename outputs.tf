@@ -1,6 +1,5 @@
-output "private_subnet" {
-  value       =  aws_subnet.private
-  description = "private subnet cidr"
+output "private_subnets" {
+  value       =  [for subnet in aws_subnet.private : subnet.id]
 }
 
 output "private_subnet_cidr_blocks" {
